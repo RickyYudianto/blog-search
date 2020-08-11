@@ -1,0 +1,81 @@
+@import "src/styles/base";
+
+
+.navbar-brand-wrapper {
+
+  .navbar-menu-toggle {
+    color: $white-color;
+    cursor: pointer;
+
+    position: fixed;
+    left: 0;
+    top: 10px;
+    padding: 0;
+    width: 40px;
+  }
+
+  .navbar-brand {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    font-size: 1rem;
+
+    text-transform: uppercase;
+
+    .form-control {
+      padding: .75rem 1rem;
+      border-width: 0;
+      border-radius: 0;
+    }
+  }
+}
+
+.form-control-dark {
+  color: $white-color;
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .1);
+
+  &:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .25);
+  }
+}
+
+.nav-link {
+  background: transparent;
+  border: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .navbar-brand-wrapper {
+    padding: 0;
+
+    .navbar-menu-toggle {
+      left: 0;
+    }
+
+    .navbar-brand {
+      text-align: center;
+      margin-left: 40px;
+    }
+  }
+
+  .navbar-nav {
+    padding-left: .85rem !important;
+    padding-right: .85rem !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .navbar-menu-toggle {
+    display: none !important;
+  }
+
+  .navbar-brand {
+    padding: 0;
+  }
+
+  .navbar-nav {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
