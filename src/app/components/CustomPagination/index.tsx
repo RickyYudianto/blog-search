@@ -11,7 +11,7 @@ import { translations } from '../../../locales/i18n';
 import './style.scss';
 
 interface Props {
-  isEnd: boolean;
+  isEnd?: boolean;
   page: number;
   size: number;
   totalItems: number;

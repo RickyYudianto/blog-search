@@ -29,8 +29,6 @@ import {
   sliceKey as bookmarkSliceKey,
 } from '../../stores/bookmark/bookmark.slice';
 
-import './style.scss';
-
 export function BlogPage() {
   useInjectReducer({ key: blogSliceKey, reducer: blogReducer });
   useInjectReducer({ key: bookmarkSliceKey, reducer: bookmarkReducer });
@@ -69,6 +67,23 @@ export function BlogPage() {
     ));
   };
 
+  const renderPagination = () => {
+    if (totalItem > 0) {
+      return (
+        <CustomPagination
+          isEnd={isEnd}
+          page={page}
+          size={size}
+          totalItems={totalItem}
+          onPageChange={page => dispatch(blogActions.setPage(page))}
+          onSizeChange={size => dispatch(blogActions.setSize(size))}
+        />
+      );
+    }
+
+    return null;
+  };
+
   return (
     <>
       <SearchInput
@@ -77,14 +92,7 @@ export function BlogPage() {
         onSearch={() => dispatch(blogActions.setPage(1))}
       />
       {renderBlogList()}
-      <CustomPagination
-        isEnd={isEnd}
-        page={page}
-        size={size}
-        totalItems={totalItem}
-        onPageChange={page => dispatch(blogActions.setPage(page))}
-        onSizeChange={size => dispatch(blogActions.setSize(size))}
-      />
+      {renderPagination()}
     </>
   );
 }

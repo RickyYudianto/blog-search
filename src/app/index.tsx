@@ -16,6 +16,7 @@ import { translations } from '../locales/i18n';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { PathConstant } from './constants/path.constant';
 import { BlogPage } from './containers/BlogPage/Loadable';
+import { BookmarkPage } from './containers/BookmarkPage/Loadable';
 import { HomePage } from './containers/HomePage/Loadable';
 
 export function App() {
@@ -41,6 +42,15 @@ export function App() {
           render={props => (
             <HomePage {...props} title={translations.BLOG}>
               <BlogPage />
+            </HomePage>
+          )}
+        />
+        <Route
+          exact
+          path={PathConstant.BOOKMARK}
+          render={props => (
+            <HomePage {...props} title={translations.BOOKMARK}>
+              <BookmarkPage />
             </HomePage>
           )}
         />
