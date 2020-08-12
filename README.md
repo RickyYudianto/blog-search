@@ -1,4 +1,4 @@
-# blog-search
+# Blog Search
 
 ### 달리는 방법
 - npm install
