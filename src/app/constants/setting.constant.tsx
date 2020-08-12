@@ -4,5 +4,6 @@ export class SettingConstant {
   public static readonly SIMPLE_DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss';
 
   public static readonly SLICE_BLOG_KEY = 'blog';
+  public static readonly SLICE_BOOKMARK_KEY = 'bookmark';
   public static readonly SLICE_MISC_KEY = 'misc';
 }

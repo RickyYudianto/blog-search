@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import isEmpty from 'lodash/isEmpty';
+
 import {
   useInjectReducer,
   useInjectSaga,
@@ -15,18 +17,31 @@ import {
   selectOptions,
   selectTotalItem,
 } from '../../selectors/blog.selectors';
-import { actions, reducer, sliceKey } from '../../stores/blog/blog.slice';
+import { selectBookmarkBlogList } from '../../selectors/bookmark.selectors';
+import {
+  actions as blogActions,
+  reducer as blogReducer,
+  sliceKey as blogSliceKey,
+} from '../../stores/blog/blog.slice';
+import {
+  actions as bookmarkActions,
+  reducer as bookmarkReducer,
+  sliceKey as bookmarkSliceKey,
+} from '../../stores/bookmark/bookmark.slice';
 
 import './style.scss';
 
 export function BlogPage() {
-  useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectSaga({ key: sliceKey, saga: blogSaga });
+  useInjectReducer({ key: blogSliceKey, reducer: blogReducer });
+  useInjectReducer({ key: bookmarkSliceKey, reducer: bookmarkReducer });
+  useInjectSaga({ key: blogSliceKey, saga: blogSaga });
 
   const blogList = useSelector(selectBlogList);
   const isEnd = useSelector(selectIsEnd);
   const { page, query, size } = useSelector(selectOptions);
   const totalItem = useSelector(selectTotalItem);
+
+  const bookmarkList = useSelector(selectBookmarkBlogList);
 
   const dispatch = useDispatch();
 
@@ -34,15 +49,22 @@ export function BlogPage() {
     useEffect(effect, []);
   };
   useEffectOnMount(() => {
-    dispatch(actions.fetchBlog());
+    dispatch(blogActions.fetchBlog());
   });
+
+  const isBookmarked = blog =>
+    !isEmpty(bookmarkList.find(bookmark => bookmark.url === blog.url));
 
   const renderBlogList = () => {
     return blogList.map(blog => (
       <BlogCard
         key={blog.url}
         blog={blog}
-        onBookmark={value => console.log(value)}
+        isBookmarked={isBookmarked(blog)}
+        onAddToBookmark={() => dispatch(bookmarkActions.addToBookmark(blog))}
+        onDeleteFromBookmark={() =>
+          dispatch(bookmarkActions.deleteFromBookmark(blog))
+        }
       />
     ));
   };
@@ -51,8 +73,8 @@ export function BlogPage() {
     <>
       <SearchInput
         searchValue={query}
-        onChange={value => dispatch(actions.setQuery(value))}
-        onSearch={() => dispatch(actions.setPage(1))}
+        onChange={value => dispatch(blogActions.setQuery(value))}
+        onSearch={() => dispatch(blogActions.setPage(1))}
       />
       {renderBlogList()}
       <CustomPagination
@@ -60,8 +82,8 @@ export function BlogPage() {
         page={page}
         size={size}
         totalItems={totalItem}
-        onPageChange={page => dispatch(actions.setPage(page))}
-        onSizeChange={size => dispatch(actions.setSize(size))}
+        onPageChange={page => dispatch(blogActions.setPage(page))}
+        onSizeChange={size => dispatch(blogActions.setSize(size))}
       />
     </>
   );

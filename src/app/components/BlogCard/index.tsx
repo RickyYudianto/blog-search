@@ -1,10 +1,14 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import { useTranslation } from 'react-i18next';
 
+import { faBookmark } from '@fortawesome/free-solid-svg-icons/faBookmark';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import format from 'date-fns/format';
 import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components/macro';
 
+import { translations } from '../../../locales/i18n';
 import { SettingConstant } from '../../constants/setting.constant';
 import Blog from '../../models/blog.model';
 
@@ -12,14 +16,30 @@ import './style.scss';
 
 interface Props {
   blog: Blog;
-  onBookmark: (blog) => void;
+  isBookmarked: boolean;
+  onAddToBookmark: () => void;
+  onDeleteFromBookmark: () => void;
 }
 
 export function BlogCard(props: Props) {
+  const { t } = useTranslation();
+
+  const onBookmark = () => {
+    props.isBookmarked ? props.onDeleteFromBookmark() : props.onAddToBookmark();
+  };
+
   return (
     <>
-      <Link href={props.blog.url} target="_blank">
-        <Card className="mb-3">
+      <Card className="mb-3">
+        <Card.Header>
+          <Icon
+            icon={faBookmark}
+            color={props.isBookmarked ? 'blue' : 'grey'}
+            title={t(translations.BOOKMARK)}
+            onClick={() => onBookmark()}
+          />
+        </Card.Header>
+        <Link href={props.blog.url} target="_blank">
           <Card.Body>
             <Title dangerouslySetInnerHTML={{ __html: props.blog.title }} />
             <Subtitle className="text-muted">
@@ -47,8 +67,8 @@ export function BlogCard(props: Props) {
               )}
             </div>
           </Card.Body>
-        </Card>
-      </Link>
+        </Link>
+      </Card>
     </>
   );
 }
@@ -61,11 +81,11 @@ const Title = styled(Card.Title)`
 const Subtitle = styled(Card.Subtitle)`
   font-size: 0.85rem !important;
   color: #a9a9a9;
-  margin-bottom: 10px !important;
+  margin-bottom: 20px !important;
 `;
 
 const Image = styled(Card.Img)`
-  width: 75px !important;
+  width: 50px !important;
 `;
 
 const Content = styled(Card.Text)`
@@ -75,6 +95,7 @@ const Content = styled(Card.Text)`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-size: 0.85rem;
+  margin-bottom: auto;
 `;
 
 const Link = styled.a`
@@ -89,4 +110,8 @@ const Link = styled.a`
 
 const DateTime = styled.span`
   font-weight: 400;
+`;
+
+const Icon = styled(FontAwesomeIcon)`
+  cursor: pointer;
 `;
