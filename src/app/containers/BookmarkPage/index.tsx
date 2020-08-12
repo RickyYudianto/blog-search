@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import { useInjectReducer } from '../../../utils/redux-injectors';
 import { BlogCard } from '../../components/BlogCard';
 import { CustomPagination } from '../../components/CustomPagination';
+import { NoData } from '../../components/NoData';
 import {
   selectBookmarkBlogList,
   selectOptions,
@@ -42,15 +43,21 @@ export function BookmarkPage() {
   }, [dispatch, bookmarkList, totalItem, page, size]);
 
   const renderBookmarkList = () => {
-    return sliceBookmarkList.map(blog => (
-      <BlogCard
-        key={blog.url}
-        blog={blog}
-        isBookmarked={isBookmarked(blog)}
-        onAddToBookmark={() => dispatch(actions.addToBookmark(blog))}
-        onDeleteFromBookmark={() => dispatch(actions.deleteFromBookmark(blog))}
-      />
-    ));
+    if (totalItem > 0) {
+      return sliceBookmarkList.map(blog => (
+        <BlogCard
+          key={blog.url}
+          blog={blog}
+          isBookmarked={isBookmarked(blog)}
+          onAddToBookmark={() => dispatch(actions.addToBookmark(blog))}
+          onDeleteFromBookmark={() =>
+            dispatch(actions.deleteFromBookmark(blog))
+          }
+        />
+      ));
+    }
+
+    return <NoData />;
   };
 
   const renderPagination = () => {

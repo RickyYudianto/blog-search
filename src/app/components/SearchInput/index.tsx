@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import debounce from 'lodash/debounce';
 import styled from 'styled-components/macro';
 
 import { translations } from '../../../locales/i18n';
@@ -16,10 +17,10 @@ interface Props {
 export function SearchInput(props: Props) {
   const { t } = useTranslation();
 
-  const onKeyPress = e => {
-    if (e.charCode === 13) {
-      props.onSearch();
-    }
+  const debounceSearch = useRef(debounce(() => props.onSearch(), 500)).current;
+  const onChange = e => {
+    props.onChange(e.target.value);
+    debounceSearch();
   };
 
   return (
@@ -30,8 +31,7 @@ export function SearchInput(props: Props) {
           type="text"
           className="form-control"
           value={props.searchValue}
-          onChange={e => props.onChange(e.target.value)}
-          onKeyPress={e => onKeyPress(e)}
+          onChange={e => onChange(e)}
           placeholder={t(translations.SEARCH)}
         />
       </div>

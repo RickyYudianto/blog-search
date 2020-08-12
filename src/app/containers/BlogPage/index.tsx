@@ -9,6 +9,7 @@ import {
 } from '../../../utils/redux-injectors';
 import { BlogCard } from '../../components/BlogCard';
 import { CustomPagination } from '../../components/CustomPagination';
+import { NoData } from '../../components/NoData';
 import { SearchInput } from '../../components/SearchInput';
 import blogSaga from '../../sagas/blog.saga';
 import {
@@ -54,17 +55,21 @@ export function BlogPage() {
     !isEmpty(bookmarkList.find(bookmark => bookmark.url === blog.url));
 
   const renderBlogList = () => {
-    return blogList.map(blog => (
-      <BlogCard
-        key={blog.url}
-        blog={blog}
-        isBookmarked={isBookmarked(blog)}
-        onAddToBookmark={() => dispatch(bookmarkActions.addToBookmark(blog))}
-        onDeleteFromBookmark={() =>
-          dispatch(bookmarkActions.deleteFromBookmark(blog))
-        }
-      />
-    ));
+    if (totalItem > 0) {
+      return blogList.map(blog => (
+        <BlogCard
+          key={blog.url}
+          blog={blog}
+          isBookmarked={isBookmarked(blog)}
+          onAddToBookmark={() => dispatch(bookmarkActions.addToBookmark(blog))}
+          onDeleteFromBookmark={() =>
+            dispatch(bookmarkActions.deleteFromBookmark(blog))
+          }
+        />
+      ));
+    }
+
+    return <NoData />;
   };
 
   const renderPagination = () => {

@@ -15,7 +15,8 @@ export function Footer() {
 const Wrapper = styled.div`
   height: 48px;
   width: 100%;
-  position: absolute;
+  position: fixed;
+  bottom: 0;
   text-align: center;
 
   background: #ffffff;

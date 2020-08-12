@@ -29,7 +29,7 @@ export function CustomPagination(props: Props) {
       : props.page * props.size;
   return (
     <>
-      <div className="flex-container col-12 p-0 space-between">
+      <Container className="flex-container col-12 p-0 space-between">
         <Wrapper className="flex-container col-md-8 col-12 p-0">
           <SizeContainer id="dropdown-item-button" title={props.size}>
             <Dropdown.Item onClick={() => props.onSizeChange(10)}>
@@ -59,10 +59,14 @@ export function CustomPagination(props: Props) {
           pageRangeDisplayed={5}
           onChange={props.onPageChange}
         />
-      </div>
+      </Container>
     </>
   );
 }
+
+const Container = styled.div`
+  margin-bottom: 2rem;
+`;
 
 const Wrapper = styled.div`
   justify-content: flex-start !important;
