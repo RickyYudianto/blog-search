@@ -22,5 +22,6 @@ const Wrapper = styled.div`
   background: #ffffff;
   background-color: #343a40;
 
-  justify-content: space-between !important;
+  justify-content: space-between;
+  z-index: 1030;
 `;

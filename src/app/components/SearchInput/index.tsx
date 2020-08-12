@@ -36,7 +36,7 @@ export default function SearchInput(props: Props) {
 
 const Span = styled.span`
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   display: block;
   width: 2.375rem;
   height: 2.375rem;
