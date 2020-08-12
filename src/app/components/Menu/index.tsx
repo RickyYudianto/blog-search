@@ -15,9 +15,7 @@ export function Menu(props: Props) {
   const { t } = useTranslation();
 
   const current = props.isActive ? (
-    <span className="sr-only">
-      ({t(translations.CURRENT)})
-    </span>
+    <span className="sr-only">({t(translations.CURRENT)})</span>
   ) : null;
 
   const activeClass = props.isActive ? 'active' : '';

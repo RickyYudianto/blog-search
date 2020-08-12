@@ -1,5 +1,4 @@
 import React from 'react';
-import * as Icon from 'react-feather';
 
 import { Menu } from '../Menu';
 import { MenuConfigData } from './menu.config.data';
@@ -24,7 +23,7 @@ export function Sidebar(props: Props) {
   }
 
   return (
-    <nav className={`col-md-2 col-6 bg-light sidebar ${toggleSidebarClass}`}>
+    <nav className={`col-md-2 col-12 bg-light sidebar ${toggleSidebarClass}`}>
       <div className="sidebar-sticky">
         <ul className="nav flex-column">
           {MENU_LIST.map(item => (

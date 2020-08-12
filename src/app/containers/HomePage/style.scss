@@ -2,7 +2,7 @@
 
 [role="main"] {
   height: 100%;
-  padding-top: 133px; /* Space for fixed navbar */
+  padding-top: 48px;
   padding-bottom: 30px;
 
   background: $white-color;
@@ -10,7 +10,6 @@
 
 @media (min-width: 768px) {
   [role="main"] {
-    padding-top: 48px; /* Space for fixed navbar */
     min-height: calc(100vh - 54px) !important;
   }
 }

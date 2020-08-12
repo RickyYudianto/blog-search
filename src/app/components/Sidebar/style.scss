@@ -29,10 +29,9 @@
 
 @media screen and (max-width: 767px) {
   .sidebar {
-    z-index: 1;
-    width: 70%;
+    z-index: 5;
 
-    margin-left: -380px;
+    margin-left: -420px;
     transition: none;
   }
 
@@ -42,7 +41,7 @@
   }
 
   .close {
-    margin-left: -380px;
+    margin-left: -420px;
     transition: all 0.5s ease-in-out;
   }
 }

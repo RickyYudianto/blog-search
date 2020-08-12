@@ -1,2 +1,15 @@
 @import "./variable";
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.space-between {
+  justify-content: space-between;
+}

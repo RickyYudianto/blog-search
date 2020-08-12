@@ -8,28 +8,45 @@
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, HashRouter as Router } from 'react-router-dom';
 
 import { GlobalStyle } from 'styles/global-styles';
 
-import { HomePage } from './containers/HomePage/Loadable';
+import { translations } from '../locales/i18n';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import { PathConstant } from './constants/path.constant';
+import { BlogPage } from './containers/BlogPage/Loadable';
+import { HomePage } from './containers/HomePage/Loadable';
 
 export function App() {
   return (
-    <BrowserRouter>
-      <Helmet
-        titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
-      >
-        <meta name="description" content="A React Boilerplate application" />
+    <Router>
+      <Helmet titleTemplate="Blog Finder" defaultTitle="Blog Finder">
+        <meta name="description" content="Project Assignment Blog Finder" />
       </Helmet>
 
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route
+          exact
+          path={PathConstant.ROOT}
+          render={props => (
+            <HomePage {...props} title={translations.BLOG}>
+              <BlogPage />
+            </HomePage>
+          )}
+        />
+        <Route
+          exact
+          path={PathConstant.BLOG}
+          render={props => (
+            <HomePage {...props} title={translations.BLOG}>
+              <BlogPage />
+            </HomePage>
+          )}
+        />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
-    </BrowserRouter>
+    </Router>
   );
 }

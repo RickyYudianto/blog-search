@@ -43,7 +43,7 @@ function useWindowSize() {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [getSize, isClient]); // Empty array ensures that effect is only run on mount and unmount
+  }, [getSize, isClient]);
 
   return windowSize;
 }
@@ -63,6 +63,12 @@ export function HomePage(props: Props) {
     screenSize.width && !isNil(screenSize.width)
       ? screenSize.width < 768
       : false;
+
+  useEffect(() => {
+    if (!isMobile) {
+      dispatch(actions.toggleMenu(false));
+    }
+  }, [dispatch, isMobile]);
 
   return (
     <>

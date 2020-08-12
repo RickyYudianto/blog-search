@@ -2,7 +2,7 @@
  * Create the store with dynamic reducers
  */
 
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { createInjectorsEnhancer, forceReducerReload } from 'redux-injectors';
 import createSagaMiddleware from 'redux-saga';
 
@@ -13,7 +13,6 @@ export function configureAppStore() {
   const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
   const { run: runSaga } = sagaMiddleware;
 
-  // Create the store with saga middleware
   const middlewares = [sagaMiddleware];
 
   const enhancers = [
@@ -25,7 +24,7 @@ export function configureAppStore() {
 
   const store = configureStore({
     reducer: createReducer(),
-    middleware: [...getDefaultMiddleware(), ...middlewares],
+    middleware: [...middlewares],
     devTools: process.env.NODE_ENV !== 'production',
     enhancers,
   });

@@ -11,14 +11,14 @@ export const initialState: ContainerState = {
   loading: false,
   options: {
     page: 1,
-    query: '',
+    query: 'Platting',
     size: 10,
   },
   totalItems: 0,
 };
 
 const blogSlice = createSlice({
-  name: SettingConstant.SLICE_MISC_KEY,
+  name: SettingConstant.SLICE_BLOG_KEY,
   initialState,
   reducers: {
     setIsEnd(state, action: PayloadAction<boolean>) {

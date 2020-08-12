@@ -5,5 +5,6 @@
   "CURRENT": "Current",
   "ENGLISH": "English",
   "KOREA": "Korea",
+  "PAGINATION_DESCRIPTION": "Showing results {{firstIndex}} to {{lastIndex}} of {{totalItems}}",
   "SEARCH": "Search"
 }

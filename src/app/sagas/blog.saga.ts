@@ -18,15 +18,17 @@ export function* fetchBlogList$() {
       camelcaseKeys(documents),
     );
 
+    const objMeta = camelcaseKeys(meta);
+
     yield put(actions.fetchBlogSuccess(objBlogs));
-    yield put(actions.setIsEnd(meta.isEnd));
-    yield put(actions.setTotalItem(meta.totalCount));
+    yield put(actions.setIsEnd(objMeta.isEnd));
+    yield put(actions.setTotalItem(objMeta.pageableCount));
   } catch (error) {
     yield put(actions.fetchBlogFailed());
   }
 }
 
-export default function* mainCategorySaga() {
+export default function* blogSaga() {
   yield takeLatest(actions.fetchBlog.type, fetchBlogList$);
   yield takeLatest(actions.setPage.type, fetchBlogList$);
   yield takeLatest(actions.setSize.type, fetchBlogList$);
