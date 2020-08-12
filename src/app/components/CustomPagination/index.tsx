@@ -27,6 +27,8 @@ export function CustomPagination(props: Props) {
     props.page * props.size > props.totalItems
       ? props.totalItems
       : props.page * props.size;
+
+  const limitMaxPage = props.totalItems / props.size > 50 ? props.size * 50 : props.totalItems;
   return (
     <>
       <Container className="flex-container col-12 p-0 space-between">
@@ -46,7 +48,7 @@ export function CustomPagination(props: Props) {
             {t(translations.PAGINATION_DESCRIPTION, {
               firstIndex: (props.page - 1) * props.size + 1,
               lastIndex: lastPageItemIndex,
-              totalItems: props.totalItems,
+              totalItems: limitMaxPage,
             })}
           </Span>
         </Wrapper>
@@ -55,7 +57,7 @@ export function CustomPagination(props: Props) {
           linkClass="page-link"
           activePage={props.page}
           itemsCountPerPage={props.size}
-          totalItemsCount={props.totalItems}
+          totalItemsCount={limitMaxPage}
           pageRangeDisplayed={5}
           onChange={props.onPageChange}
         />
