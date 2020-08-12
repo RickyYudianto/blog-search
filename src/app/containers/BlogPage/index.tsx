@@ -82,6 +82,7 @@ export function BlogPage() {
           totalItems={totalItems}
           onPageChange={page => dispatch(blogActions.setPage(page))}
           onSizeChange={size => dispatch(blogActions.setSize(size))}
+          isLimitation
         />
       );
     }

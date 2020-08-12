@@ -12,6 +12,7 @@ import './style.scss';
 
 interface Props {
   isEnd?: boolean;
+  isLimitation?: boolean;
   page: number;
   size: number;
   totalItems: number;
@@ -48,7 +49,7 @@ export function CustomPagination(props: Props) {
             {t(translations.PAGINATION_DESCRIPTION, {
               firstIndex: (props.page - 1) * props.size + 1,
               lastIndex: lastPageItemIndex,
-              totalItems: limitMaxPage,
+              totalItems: props.isLimitation ? limitMaxPage : props.totalItems,
             })}
           </Span>
         </Wrapper>
@@ -57,7 +58,7 @@ export function CustomPagination(props: Props) {
           linkClass="page-link"
           activePage={props.page}
           itemsCountPerPage={props.size}
-          totalItemsCount={limitMaxPage}
+          totalItemsCount={props.isLimitation ? limitMaxPage : props.totalItems}
           pageRangeDisplayed={5}
           onChange={props.onPageChange}
         />
