@@ -11,7 +11,7 @@ export const initialState: ContainerState = {
   loading: false,
   options: {
     page: 1,
-    query: 'Platting',
+    query: '',
     size: 10,
   },
   totalItems: 0,
@@ -24,14 +24,18 @@ const blogSlice = createSlice({
     setIsEnd(state, action: PayloadAction<boolean>) {
       state.isEnd = action.payload;
     },
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload;
+    },
     setPage(state, action: PayloadAction<number>) {
-      state.options.page = action.payload;
+      state.options.page = action.payload > 50 ? 50 : action.payload;
     },
     setQuery(state, action: PayloadAction<string>) {
       state.options.query = action.payload;
     },
     setSize(state, action: PayloadAction<number>) {
       state.options.size = action.payload;
+      state.options.page = 1;
     },
     setTotalItem(state, action: PayloadAction<number>) {
       state.totalItems = action.payload;
@@ -44,7 +48,11 @@ const blogSlice = createSlice({
       state.loading = false;
     },
     fetchBlogFailed(state) {
+      state.blogs = [];
+      state.isEnd = false;
       state.loading = false;
+      state.options.page = 1;
+      state.totalItems = 0;
     },
     resetState(state) {
       state = initialState;

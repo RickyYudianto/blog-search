@@ -8,6 +8,25 @@
   background: $white-color;
 }
 
+._loading_overlay_wrapper {
+  position: inherit;
+
+  ._loading_overlay_overlay {
+    z-index: 1031;
+
+    ._loading_overlay_content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+
+      .css-1ujetdd {
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+}
+
 @media (min-width: 768px) {
   [role="main"] {
     min-height: calc(100vh - 54px) !important;

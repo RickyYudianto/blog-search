@@ -25,7 +25,7 @@ export const selectOptions = createSelector(
   blogState => blogState.options,
 );
 
-export const selectTotalItem = createSelector(
+export const selectTotalItems = createSelector(
   [selectDomain],
   blogState => blogState.totalItems,
 );

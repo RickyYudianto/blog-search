@@ -23,6 +23,7 @@ const bookmarkSlice = createSlice({
     },
     setSize(state, action: PayloadAction<number>) {
       state.options.size = action.payload;
+      state.options.page = 1;
     },
     setTotalItem(state, action: PayloadAction<number>) {
       state.totalItems = action.payload;

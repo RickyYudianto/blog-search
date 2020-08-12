@@ -16,7 +16,7 @@ import {
   selectBlogList,
   selectIsEnd,
   selectOptions,
-  selectTotalItem,
+  selectTotalItems,
 } from '../../selectors/blog.selectors';
 import { selectBookmarkBlogList } from '../../selectors/bookmark.selectors';
 import {
@@ -38,7 +38,7 @@ export function BlogPage() {
   const blogList = useSelector(selectBlogList);
   const isEnd = useSelector(selectIsEnd);
   const { page, query, size } = useSelector(selectOptions);
-  const totalItem = useSelector(selectTotalItem);
+  const totalItems = useSelector(selectTotalItems);
 
   const bookmarkList = useSelector(selectBookmarkBlogList);
 
@@ -55,7 +55,7 @@ export function BlogPage() {
     !isEmpty(bookmarkList.find(bookmark => bookmark.url === blog.url));
 
   const renderBlogList = () => {
-    if (totalItem > 0) {
+    if (totalItems > 0) {
       return blogList.map(blog => (
         <BlogCard
           key={blog.url}
@@ -73,13 +73,13 @@ export function BlogPage() {
   };
 
   const renderPagination = () => {
-    if (totalItem > 0) {
+    if (totalItems > 0) {
       return (
         <CustomPagination
           isEnd={isEnd}
           page={page}
           size={size}
-          totalItems={totalItem}
+          totalItems={totalItems}
           onPageChange={page => dispatch(blogActions.setPage(page))}
           onSizeChange={size => dispatch(blogActions.setSize(size))}
         />

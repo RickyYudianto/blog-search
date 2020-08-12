@@ -14,6 +14,8 @@ export function LanguageSwitch() {
     i18n.changeLanguage(language);
   };
 
+  console.log(i18n.language);
+
   return (
     <Wrapper>
       <Languages>

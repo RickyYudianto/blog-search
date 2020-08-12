@@ -10,7 +10,7 @@ import { NoData } from '../../components/NoData';
 import {
   selectBookmarkBlogList,
   selectOptions,
-  selectTotalItem,
+  selectTotalItems,
 } from '../../selectors/bookmark.selectors';
 import {
   actions,
@@ -22,7 +22,7 @@ export function BookmarkPage() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
 
   const { page, size } = useSelector(selectOptions);
-  const totalItem = useSelector(selectTotalItem);
+  const totalItems = useSelector(selectTotalItems);
 
   const bookmarkList = useSelector(selectBookmarkBlogList);
 
@@ -37,13 +37,13 @@ export function BookmarkPage() {
   );
 
   useEffect(() => {
-    if (totalItem === (page - 1) * size && page > 1) {
+    if (totalItems === (page - 1) * size && page > 1) {
       dispatch(actions.setPage(page - 1));
     }
-  }, [dispatch, bookmarkList, totalItem, page, size]);
+  }, [dispatch, bookmarkList, totalItems, page, size]);
 
   const renderBookmarkList = () => {
-    if (totalItem > 0) {
+    if (totalItems > 0) {
       return sliceBookmarkList.map(blog => (
         <BlogCard
           key={blog.url}
@@ -61,12 +61,12 @@ export function BookmarkPage() {
   };
 
   const renderPagination = () => {
-    if (totalItem > 0) {
+    if (totalItems > 0) {
       return (
         <CustomPagination
           page={page}
           size={size}
-          totalItems={totalItem}
+          totalItems={totalItems}
           onPageChange={page => dispatch(actions.setPage(page))}
           onSizeChange={size => dispatch(actions.setSize(size))}
         />

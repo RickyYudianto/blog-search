@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import LoadingOverlay from 'react-loading-overlay';
 import { useDispatch, useSelector } from 'react-redux';
+import FadeLoader from 'react-spinners/FadeLoader';
 
 import isNil from 'lodash/isNil';
 import styled from 'styled-components';
@@ -13,6 +15,7 @@ import { selectIsMenuOpen } from '../../selectors/misc.selectors';
 import { actions, reducer, sliceKey } from '../../stores/misc/misc.slice';
 
 import './style.scss';
+import { selectLoading } from '../../selectors/blog.selectors';
 
 interface Props {
   children: any;
@@ -52,6 +55,7 @@ export function HomePage(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
 
   const isMenuOpen = useSelector(selectIsMenuOpen);
+  const blogLoading = useSelector(selectLoading);
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -72,20 +76,22 @@ export function HomePage(props: Props) {
 
   return (
     <>
-      <Container>
-        <Header onToggleSidebar={() => onToggleSidebar()} />
-        <Sidebar
-          isMenuOpen={isMenuOpen}
-          isMobile={isMobile}
-          currentPath={props.location.pathname}
-          onToggleSidebar={() => onToggleSidebar()}
-        />
-        <main role="main" className="col-md-10 ml-sm-auto px-4">
-          <H1 className="page-title">{t(props.title)}</H1>
-          {props.children}
-        </main>
-        <Footer />
-      </Container>
+      <LoadingOverlay active={blogLoading} spinner={<FadeLoader />}>
+        <Container>
+          <Header onToggleSidebar={() => onToggleSidebar()} />
+          <Sidebar
+            isMenuOpen={isMenuOpen}
+            isMobile={isMobile}
+            currentPath={props.location.pathname}
+            onToggleSidebar={() => onToggleSidebar()}
+          />
+          <main role="main" className="col-md-10 ml-sm-auto px-4">
+            <H1 className="page-title">{t(props.title)}</H1>
+            {props.children}
+          </main>
+          <Footer />
+        </Container>
+      </LoadingOverlay>
     </>
   );
 }

@@ -15,7 +15,7 @@ export const selectOptions = createSelector(
   bookmarkState => bookmarkState.options,
 );
 
-export const selectTotalItem = createSelector(
+export const selectTotalItems = createSelector(
   [selectDomain],
   bookmarkState => bookmarkState.totalItems,
 );

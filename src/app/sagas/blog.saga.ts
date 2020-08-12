@@ -1,4 +1,5 @@
 import camelcaseKeys from 'camelcase-keys';
+import isUndefined from 'lodash/isUndefined';
 import { put, select, takeLatest } from 'redux-saga/effects';
 
 import { convertJsonToArrayOfObject } from '../helpers/util.helper';
@@ -9,6 +10,7 @@ import { actions } from '../stores/blog/blog.slice';
 
 export function* fetchBlogList$() {
   try {
+    yield put(actions.setLoading(true));
     const options = yield select(selectOptions);
     const response = yield getBlogList(options);
 
@@ -20,9 +22,13 @@ export function* fetchBlogList$() {
 
     const objMeta = camelcaseKeys(meta);
 
-    yield put(actions.fetchBlogSuccess(objBlogs));
-    yield put(actions.setIsEnd(objMeta.isEnd));
-    yield put(actions.setTotalItem(objMeta.pageableCount));
+    if (!isUndefined(objBlogs)) {
+      yield put(actions.fetchBlogSuccess(objBlogs));
+      yield put(actions.setIsEnd(objMeta.isEnd));
+      yield put(actions.setTotalItem(objMeta.pageableCount));
+    } else {
+      yield put(actions.fetchBlogFailed());
+    }
   } catch (error) {
     yield put(actions.fetchBlogFailed());
   }
