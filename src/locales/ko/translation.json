@@ -5,6 +5,7 @@
   "CURRENT": "현재",
   "ENGLISH": "영어",
   "KOREA": "한국어",
+  "NO_DATA": "데이터 없음",
   "PAGINATION_DESCRIPTION": "결과보기 {{firstIndex}} ~ {{lastIndex}} 의 {{totalItems}}",
   "SEARCH": "검색"
 }
